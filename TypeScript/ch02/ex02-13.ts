@@ -5,6 +5,6 @@
 
   console.log(echo('hello'));
   console.log(echo(100));
-  console.log(echo(new Date()));
+  // console.log(echo(new Date())); 
 })();
 
