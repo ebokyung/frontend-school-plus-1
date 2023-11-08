@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import './reset.css'
 
-export default function User({data, handleDelete}) {
+export default function User({data, handleActive, handleDelete}) {
   const [isActive, setIsActive] = useState(data.active);
 
   return ( <li>
     <p style={{color : isActive ? 'green': 'black', fontWeight: 'bold', marginRight: '10px'}} 
-      onClick={() =>  setIsActive(prev => !prev)}>
+      onClick={() =>  {
+        handleActive(data.id, !isActive);
+        setIsActive(prev => !prev);
+      }}
+    >
       {data?.username}
     </p>
     <p style={{marginRight: '5px'}}>({data?.email})</p>

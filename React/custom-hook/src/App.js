@@ -1,6 +1,6 @@
-import User from "./User";
-import './reset.css'
 import { useReducer, useRef } from 'react';
+import './reset.css'
+import User from "./User";
 import userDataReducer from "./userReducer";
 
 const initialState = {
@@ -20,6 +20,10 @@ function App() {
     email.value = '';
   }
 
+  const handleActive = (id, isActive) => {
+    setUserData({type: 'active', id, isActive});
+  }
+
   const handleDelete = (id) => {
     setUserData({type: 'delete', id});
   }
@@ -33,10 +37,10 @@ function App() {
       </form>
       <ul>
         {userData?.users.map((user) => {
-          return <User data={user} id={user.id} handleDelete={handleDelete}/>
+          return <User data={user} id={user.id} handleActive={handleActive} handleDelete={handleDelete}/>
         })}
       </ul>
-      <p>활성사용자수:</p>
+      <p>활성사용자수:{userData.users.filter(user => user.active).length}</p>
     </>
   );
 }
