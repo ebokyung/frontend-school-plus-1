@@ -7,6 +7,13 @@ export default function userDataReducer(userData, action) {
           users: [...userData.users, {id, username, email, active: false}]
         }
       }
+      case 'delete': {
+        const { id } = action;
+        const newUserArr = [...userData.users].filter(item => item.id !== id);
+        return {
+          users: newUserArr
+        }
+      }
       default: {
         throw Error('알 수 없는 타입');
       }

@@ -3,22 +3,25 @@ import './reset.css'
 import { useReducer, useRef } from 'react';
 import userDataReducer from "./userReducer";
 
-function App() {
-  const formRef = useRef();
-  const initialState = {
-    users: [
-      {id: 1, username: 'test', email: 'public.test@gmail.com', active: true}
-    ]
-  };
+const initialState = {
+  users: [
+    {id: 1, username: 'test', email: 'public.test@gmail.com', active: true}
+  ]
+};
 
+function App() {
   const [userData, setUserData] = useReducer(userDataReducer, initialState);
-  console.log(userData)
+  const formRef = useRef();
 
   const handleRegister = () => {
     const {username, email} = formRef.current.elements;
     setUserData({type: 'register', username: username.value, email: email.value});
     username.value = '';
     email.value = '';
+  }
+
+  const handleDelete = (id) => {
+    setUserData({type: 'delete', id});
   }
 
   return (
@@ -30,7 +33,7 @@ function App() {
       </form>
       <ul>
         {userData?.users.map((user) => {
-          return <User data={user} />
+          return <User data={user} id={user.id} handleDelete={handleDelete}/>
         })}
       </ul>
       <p>활성사용자수:</p>
